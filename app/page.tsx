@@ -1,4 +1,31 @@
+import React from "react";
+
 export default function ErickAIDemoWebsite() {
+  const [messages, setMessages] = React.useState([
+    {
+      role: "assistant",
+      text: "Hi, I’m ErickAutomation Assistant. I can answer questions about the AI assistants Erick builds for businesses.",
+    },
+  ]);
+
+  const handleDemoPrompt = (prompt) => {
+    const nextMessages = [...messages, { role: "user", text: prompt }];
+    let reply = "I can help explain how the assistant works, what it can do, and how it helps businesses capture leads.";
+
+    if (prompt === "What does it do?") {
+      reply = "It answers customer questions, captures leads, and helps guide website visitors toward contacting or booking with a business.";
+    } else if (prompt === "Who is it for?") {
+      reply = "It’s best for small businesses, local service providers, creators, and businesses that want faster responses without adding more manual work.";
+    } else if (prompt === "How does lead capture work?") {
+      reply = "The assistant can ask for a visitor’s email, phone number, or message details during the conversation so the business can follow up later.";
+    } else if (prompt === "How would mine be customized?") {
+      reply = "Each assistant can be customized around a business’s services, pricing, contact flow, hours, and common customer questions.";
+    } else if (prompt === "How do I get one?") {
+      reply = "You can reach out through email or Instagram, and Erick can build a version around your business and customer flow. If you want, click Email Erick below to start.";
+    }
+
+    setMessages([...nextMessages, { role: "assistant", text: reply }]);
+  };
   const demoCards = [
     {
       title: "Business Assistant Demo",
@@ -48,6 +75,12 @@ export default function ErickAIDemoWebsite() {
               I build AI assistants for businesses, lead-capture systems, and custom automation demos that help turn missed inquiries into real opportunities.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
+              <a
+                href="#services"
+                className="rounded-2xl bg-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-violet-500/20 transition hover:scale-[1.02]"
+              >
+                Try Demo Below
+              </a>
               <a
                 href="#demos"
                 className="rounded-2xl bg-sky-400 px-6 py-3 font-medium text-slate-950 shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
@@ -118,6 +151,67 @@ export default function ErickAIDemoWebsite() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl shadow-black/20">
+            <p className="text-sm uppercase tracking-[0.2em] text-sky-300">Interactive demo</p>
+            <h2 className="mt-3 text-3xl font-bold md:text-4xl">Try a simple version of the assistant</h2>
+            <p className="mt-4 text-slate-300">
+              This is a lightweight demo of the kind of assistant I build for businesses. It shows how a website assistant can answer questions, explain services, and guide people toward the next step.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {[
+                "What does it do?",
+                "Who is it for?",
+                "How does lead capture work?",
+                "How would mine be customized?",
+                "How do I get one?",
+              ].map((prompt) => (
+                <button
+                  key={prompt}
+                  onClick={() => handleDemoPrompt(prompt)}
+                  className="rounded-2xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400 hover:text-sky-300"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-slate-800 bg-slate-950 p-6 shadow-xl shadow-black/20">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.2em] text-sky-300">Demo chat</p>
+                <h3 className="mt-2 text-xl font-semibold">ErickAutomation Assistant</h3>
+              </div>
+              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
+                Online Demo
+              </span>
+            </div>
+            <div className="h-[320px] overflow-y-auto rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+              <div className="space-y-4">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
+                        message.role === "user"
+                          ? "bg-sky-400 text-slate-950"
+                          : "border border-slate-800 bg-slate-950 text-slate-200"
+                      }`}
+                    >
+                      {message.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-slate-400">
+              This demo is a simple front-end simulation of a business assistant experience. Full custom assistants can be built around a real business workflow.
+            </p>
+          </div>
+        </div>
         <div className="grid gap-8 md:grid-cols-2">
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
             <h2 className="text-3xl font-bold">Why this matters</h2>
@@ -147,7 +241,7 @@ export default function ErickAIDemoWebsite() {
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="mailto:erickautomation@proton.me"
+                href="mailto:erickfmadrid@gmail.com"
                 className="rounded-2xl bg-slate-100 px-6 py-3 font-medium text-slate-950 transition hover:scale-[1.02]"
               >
                 Email Erick
@@ -156,7 +250,7 @@ export default function ErickAIDemoWebsite() {
                 href="https://www.instagram.com/erick.ai.builds"
                 className="rounded-2xl border border-slate-700 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500 hover:bg-slate-900"
               >
-                Instagram: @erick.ai.builds
+                Instagram: @Erick.Automation
               </a>
             </div>
           </div>
