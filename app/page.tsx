@@ -30,33 +30,57 @@ export default function ErickAIDemoWebsite() {
   const [leadSubmitted, setLeadSubmitted] = React.useState(false);
 
   const handleDemoPrompt = (prompt: string) => {
-    const nextMessages: Message[] = [...messages, { role: "user", text: prompt }];
-    let reply =
-      "I can help explain how the assistant works, what it can do, and how it helps businesses capture leads.";
+  const nextMessages: Message[] = [
+    ...messages,
+    { role: "user", text: prompt },
+  ];
 
-    if (prompt === "What does it do?") {
-      reply =
-        "It answers customer questions, captures leads, and helps guide website visitors toward contacting or booking with a business.";
-    } else if (prompt === "Who is it for?") {
-      reply =
-        "It’s best for small businesses, local service providers, creators, and businesses that want faster responses without adding more manual work.";
-    } else if (prompt === "How does lead capture work?") {
-      reply =
-        "The assistant can ask for a visitor’s email, phone number, or message details during the conversation so the business can follow up later.";
-    } else if (prompt === "How would mine be customized?") {
-      reply =
-        "Each assistant can be customized around a business’s services, pricing, contact flow, hours, and common customer questions.";
-    } else if (prompt === "How do I get one?") {
-      reply =
-        "You can reach out through email or Instagram, or leave your info below and Erick can build a version around your business and customer flow.";
-    }
+  let reply =
+    "I can help explain how the assistant works, what it can do, and how it helps businesses capture leads.";
 
-    const updatedMessages = [...nextMessages, { role: "assistant", text: reply }];
+  if (prompt === "What does it do?") {
+    reply =
+      "It answers customer questions, captures leads, and helps guide website visitors toward contacting or booking with a business.";
+  } else if (prompt === "Who is it for?") {
+    reply =
+      "It’s best for small businesses, local service providers, creators, and businesses that want faster responses without adding more manual work.";
+  } else if (prompt === "How does lead capture work?") {
+    reply =
+      "The assistant can ask for a visitor’s email, phone number, or message details during the conversation so the business can follow up later.";
+  } else if (prompt === "How would mine be customized?") {
+    reply =
+      "Each assistant can be customized around a business’s services, pricing, contact flow, hours, and common customer questions.";
+  } else if (prompt === "How do I get one?") {
+    reply =
+      "You can reach out through email or Instagram, or leave your info below and Erick can build a version around your business and customer flow.";
+  }
+
+  const updatedMessages: Message[] = [
+    ...nextMessages,
+    { role: "assistant", text: reply },
+  ];
+
+  if (!leadSubmitted && nextMessages.filter((m) => m.role === "user").length >= 3) {
+    updatedMessages.push({
+      role: "assistant" as const,
+      text: "Want one for your business? Drop your name, email, and business below and Erick can follow up with you.",
+    });
+    setShowLeadForm(true);
+  }
+
+  setMessages(updatedMessages);
+};
+
+    const updatedMessages: Message[] = [
+  ...nextMessages,
+  { role: "assistant", text: reply },
+];
 
     if (!leadSubmitted && nextMessages.filter((m) => m.role === "user").length >= 3) {
       updatedMessages.push({
-        role: "assistant",
-        text: "Want one for your business? Drop your name, email, and business below and Erick can follow up with you.",
+  role: "assistant" as const,
+  text: "Want one for your business? Drop your name, email, and business below and Erick can follow up with you.",
+});
       });
       setShowLeadForm(true);
     }
