@@ -1,19 +1,33 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 type Message = {
   role: "assistant" | "user";
   text: string;
 };
 
+type LeadForm = {
+  name: string;
+  email: string;
+  business: string;
+};
+
 export default function ErickAIDemoWebsite() {
   const [messages, setMessages] = React.useState<Message[]>([
     {
       role: "assistant",
-      text: "Hi, I’m ErickAutomation Assistant. I can answer questions about the AI assistants Erick builds for businesses.",
+      text: "Hi, I’m Huginn Assist. I can answer questions about the AI assistants Erick builds for businesses.",
     },
   ]);
+  const [leadForm, setLeadForm] = React.useState<LeadForm>({
+    name: "",
+    email: "",
+    business: "",
+  });
+  const [showLeadForm, setShowLeadForm] = React.useState(false);
+  const [leadSubmitted, setLeadSubmitted] = React.useState(false);
 
   const handleDemoPrompt = (prompt: string) => {
     const nextMessages: Message[] = [...messages, { role: "user", text: prompt }];
@@ -34,10 +48,58 @@ export default function ErickAIDemoWebsite() {
         "Each assistant can be customized around a business’s services, pricing, contact flow, hours, and common customer questions.";
     } else if (prompt === "How do I get one?") {
       reply =
-        "You can reach out through email or Instagram, and Erick can build a version around your business and customer flow. If you want, click Email Erick below to start.";
+        "You can reach out through email or Instagram, or leave your info below and Erick can build a version around your business and customer flow.";
     }
 
-    setMessages([...nextMessages, { role: "assistant", text: reply }]);
+    const updatedMessages = [...nextMessages, { role: "assistant", text: reply }];
+
+    if (!leadSubmitted && nextMessages.filter((m) => m.role === "user").length >= 3) {
+      updatedMessages.push({
+        role: "assistant",
+        text: "Want one for your business? Drop your name, email, and business below and Erick can follow up with you.",
+      });
+      setShowLeadForm(true);
+    }
+
+    setMessages(updatedMessages);
+  };
+
+  const handleLeadChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setLeadForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLeadSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!leadForm.name || !leadForm.email || !leadForm.business) {
+      return;
+    }
+
+    const savedLeads = JSON.parse(localStorage.getItem("erickautomation_leads") || "[]");
+    const nextLead = {
+      ...leadForm,
+      createdAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem(
+      "erickautomation_leads",
+      JSON.stringify([...savedLeads, nextLead])
+    );
+
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", text: `Name: ${leadForm.name} | Email: ${leadForm.email} | Business: ${leadForm.business}` },
+      {
+        role: "assistant",
+        text: "Thanks — your info was saved. Erick can now follow up with you about building a custom assistant.",
+      },
+    ]);
+    setLeadSubmitted(true);
+    setShowLeadForm(false);
+    setLeadForm({ name: "", email: "", business: "" });
   };
 
   const demoCards = [
@@ -84,13 +146,35 @@ export default function ErickAIDemoWebsite() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <section className="relative overflow-hidden border-b border-slate-800">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-violet-500/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/15 via-violet-500/10 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.12),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.10),transparent_30%)]" />
         <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="max-w-3xl">
-            <p className="mb-4 inline-flex rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1 text-sm text-sky-300">
-              ErickAutomation
-            </p>
-            <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="rounded-2xl border border-sky-400/20 bg-slate-900/80 p-2 shadow-lg shadow-sky-500/10">
+                <Image
+                  src="/huginn-logo.png"
+                  alt="Huginn Assist Logo"
+                  width={64}
+                  height={64}
+                  className="rounded-xl"
+                />
+              </div>
+
+              <div>
+                <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+                  ErickAutomation
+                </p>
+                <p className="mt-1 text-2xl font-semibold text-slate-100">
+                  Huginn Assist
+                </p>
+                <p className="mt-1 text-sm text-slate-400">
+                  AI-powered business assistant for customer interaction and lead capture
+                </p>
+              </div>
+            </div>
+
+            <h1 className="text-4xl font-bold tracking-tight text-slate-50 md:text-6xl">
               AI assistants, demos, and automation systems built to help businesses capture more leads and save time.
             </h1>
             <p className="mt-6 text-lg leading-8 text-slate-300 md:text-xl">
@@ -98,14 +182,14 @@ export default function ErickAIDemoWebsite() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="#services"
-                className="rounded-2xl bg-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-violet-500/20 transition hover:scale-[1.02]"
+                href="#demo"
+                className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02] hover:shadow-sky-400/20"
               >
-                Try Demo Below
+                Try Huginn Assist
               </a>
               <a
                 href="#demos"
-                className="rounded-2xl bg-sky-400 px-6 py-3 font-medium text-slate-950 shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
+                className="rounded-2xl border border-sky-400/30 bg-slate-900/80 px-6 py-3 font-medium text-sky-200 shadow-lg shadow-sky-500/10 transition hover:scale-[1.02] hover:border-sky-300 hover:bg-slate-900"
               >
                 Explore Projects
               </a>
@@ -121,7 +205,7 @@ export default function ErickAIDemoWebsite() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-16" id="services">
-        <div className="mb-8 rounded-3xl border border-slate-800 bg-gradient-to-r from-sky-500/10 to-violet-500/10 p-6">
+        <div className="mb-8 rounded-3xl border border-sky-500/20 bg-gradient-to-r from-sky-500/10 to-violet-500/10 p-6 shadow-lg shadow-sky-500/5">
           <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
             Built for small businesses
           </p>
@@ -150,7 +234,7 @@ export default function ErickAIDemoWebsite() {
         </div>
       </section>
 
-      <section className="border-y border-slate-800 bg-slate-900/40" id="demos">
+      <section className="border-y border-slate-800 bg-gradient-to-b from-slate-900/50 to-slate-950" id="demos">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="mb-10 max-w-3xl">
             <h2 className="text-3xl font-bold md:text-4xl">
@@ -165,7 +249,7 @@ export default function ErickAIDemoWebsite() {
             {demoCards.map((demo) => (
               <div
                 key={demo.title}
-                className="rounded-3xl border border-slate-800 bg-slate-950 p-6 shadow-xl shadow-black/20"
+                className="rounded-3xl border border-sky-500/10 bg-slate-950/95 p-6 shadow-xl shadow-sky-950/20 transition hover:border-sky-400/20 hover:shadow-sky-900/20"
               >
                 <h3 className="text-xl font-semibold">{demo.title}</h3>
                 <p className="mt-3 text-slate-300">{demo.desc}</p>
@@ -178,7 +262,7 @@ export default function ErickAIDemoWebsite() {
                   ))}
                 </ul>
                 <button className="mt-6 rounded-2xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400 hover:text-sky-300">
-                  Ask About This Project
+                  Ask About This System
                 </button>
               </div>
             ))}
@@ -186,17 +270,33 @@ export default function ErickAIDemoWebsite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
+      <section className="mx-auto max-w-6xl px-6 py-16" id="demo">
+        <div className="mb-8 flex flex-wrap gap-3">
+          {[
+            "Customer Q&A",
+            "Follow-up Aware",
+            "Lead Capture",
+            "Booking Guidance",
+            "Business Flow",
+          ].map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-sky-400/20 bg-slate-900/80 px-4 py-2 text-sm text-sky-200 shadow-sm shadow-sky-500/5"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
         <div className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl shadow-black/20">
             <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
-              Interactive demo
+              Try Huginn Assist
             </p>
             <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              Try a simple version of the assistant
+              Talk with my business assistant
             </h2>
             <p className="mt-4 text-slate-300">
-              This is a lightweight demo of the kind of assistant I build for businesses. It shows how a website assistant can answer questions, explain services, and guide people toward the next step.
+              Huginn Assist is my business-facing assistant built to answer questions, guide conversations, support service flow, and capture leads in a more natural way.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               {demoPrompts.map((prompt) => (
@@ -211,7 +311,7 @@ export default function ErickAIDemoWebsite() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-slate-800 bg-slate-950 p-6 shadow-xl shadow-black/20">
+          <div className="rounded-3xl border border-sky-500/10 bg-slate-950/95 p-6 shadow-xl shadow-sky-950/20 transition hover:border-sky-400/20 hover:shadow-sky-900/20">
             <div className="mb-4 flex items-center justify-between">
               <div>
                 <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
@@ -222,11 +322,11 @@ export default function ErickAIDemoWebsite() {
                 </h3>
               </div>
               <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
-                Online Demo
+                Live Assistant
               </span>
             </div>
 
-            <div className="h-[320px] overflow-y-auto rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+            <div className="h-[320px] overflow-y-auto rounded-2xl border border-sky-500/10 bg-gradient-to-b from-slate-900/80 to-slate-950 p-4">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <div
@@ -238,8 +338,8 @@ export default function ErickAIDemoWebsite() {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
                         message.role === "user"
-                          ? "bg-sky-400 text-slate-950"
-                          : "border border-slate-800 bg-slate-950 text-slate-200"
+                          ? "bg-gradient-to-r from-sky-300 to-sky-400 text-slate-950 shadow-md shadow-sky-500/10"
+                          : "border border-sky-500/10 bg-slate-950 text-slate-200"
                       }`}
                     >
                       {message.text}
@@ -249,8 +349,52 @@ export default function ErickAIDemoWebsite() {
               </div>
             </div>
 
+            {showLeadForm && !leadSubmitted && (
+              <form
+                onSubmit={handleLeadSubmit}
+                className="mt-4 space-y-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4"
+              >
+                <p className="text-sm font-medium text-sky-300">
+                  Request Huginn Assist
+                </p>
+                <input
+                  type="text"
+                  name="name"
+                  value={leadForm.name}
+                  onChange={handleLeadChange}
+                  placeholder="Your name"
+                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={leadForm.email}
+                  onChange={handleLeadChange}
+                  placeholder="Your email"
+                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                />
+                <input
+                  type="text"
+                  name="business"
+                  value={leadForm.business}
+                  onChange={handleLeadChange}
+                  placeholder="Business name or industry"
+                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                />
+                <button
+                  type="submit"
+                  className="w-full rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
+                >
+                  Save my info
+                </button>
+                <p className="text-xs text-slate-400">
+                  Demo version: lead info is saved in this browser using localStorage.
+                </p>
+              </form>
+            )}
+
             <p className="mt-4 text-sm text-slate-400">
-              This demo is a simple front-end simulation of a business assistant experience. Full custom assistants can be built around a real business workflow.
+              This is a lightweight site version of Huginn Assist. Full custom builds can be tailored around real business workflows, services, and lead flow.
             </p>
           </div>
         </div>
@@ -259,7 +403,7 @@ export default function ErickAIDemoWebsite() {
           <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
             <h2 className="text-3xl font-bold">Why this matters</h2>
             <p className="mt-4 text-slate-300">
-              A lot of businesses lose opportunities because they respond too slowly, miss inquiries, or don’t have a clear process for handling leads. My goal is to build systems that reduce that friction and help businesses respond faster and smarter.
+              A lot of businesses lose opportunities because they respond too slowly, miss inquiries, or don’t have a clear process for handling leads. Huginn Assist is built to reduce that friction and help businesses respond faster and smarter.
             </p>
           </div>
 
@@ -272,14 +416,38 @@ export default function ErickAIDemoWebsite() {
         </div>
       </section>
 
+      <section className="border-t border-slate-800">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-bold text-slate-200">
+              In Development
+            </h2>
+
+            <div className="mt-6 rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
+              <h3 className="text-lg font-semibold text-slate-100">
+                Ember Companion (In Progress)
+              </h3>
+
+              <p className="mt-3 text-slate-300">
+                A long-term AI companion system focused on memory, personality, and consistent interaction design.
+              </p>
+
+              <p className="mt-2 text-sm text-slate-400">
+                Part of the broader Huginn system currently in development.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-t border-slate-800" id="contact">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold md:text-4xl">
-              Let’s build something that helps your business
+              Get Huginn Assist for your business
             </h2>
             <p className="mt-4 text-slate-300">
-              If you want an AI assistant for your website, a lead opportunity analysis, or a custom automation demo built around your business, this is the place to start.
+              If you want Huginn Assist built around your services, pricing, and customer flow, this is the place to start.
             </p>
 
             <div className="mt-8 rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
@@ -299,8 +467,10 @@ export default function ErickAIDemoWebsite() {
                 Email Erick
               </a>
               <a
-                href="https://www.instagram.com/erick.ai.builds"
+                href="https://www.instagram.com/Erick.Automation"
                 className="rounded-2xl border border-slate-700 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500 hover:bg-slate-900"
+                target="_blank"
+                rel="noreferrer"
               >
                 Instagram: @Erick.Automation
               </a>
