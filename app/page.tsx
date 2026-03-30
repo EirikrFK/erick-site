@@ -67,24 +67,34 @@ export default function ErickAIDemoWebsite() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.12),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.10),transparent_30%)]" />
 
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <div className="max-w-3xl">
 
           <div className="mb-6 flex items-center gap-4">
+            <div className="rounded-2xl border border-sky-400/20 bg-slate-900/80 p-2 shadow-lg shadow-sky-500/10">
             <Image
               src="/huginn-logo.png"
               alt="Huginn Assist Logo"
-              width={60}
-              height={60}
+              width={64}
+              height={64}
+              className="rounded-xl"
+              priority
             />
+          </div>
 
             <div>
-              <p className="text-sm text-sky-300 uppercase">
+              <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
                 ErickAutomation
               </p>
-              <p className="text-xl font-semibold">Huginn Assist</p>
+              <p className="mt-1 text-2xl font-semibold text-slate-100">
+                Huginn Assist
+              </p>
+              <p className="mt-1 text-sm text-slate-400">
+                AI-powered business assistant for customer interaction and lead capture
+              </p>
             </div>
           </div>
 
@@ -100,7 +110,7 @@ export default function ErickAIDemoWebsite() {
           <div className="mt-8 flex gap-4">
             <a
               href="#demo"
-              className="bg-sky-400 text-slate-950 px-6 py-3 rounded-xl"
+              className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
             >
               Try Huginn Assist
             </a>
