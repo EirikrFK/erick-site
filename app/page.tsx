@@ -206,7 +206,7 @@ export default function Page() {
       <section>
         <div className="mx-auto max-w-6xl px-6 pb-24 pt-12 md:pb-32 md:pt-16">
           <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-8 flex items-center justify-center gap-4">
+            <div className="mb-10 flex items-center justify-center gap-6">
               <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_40px_rgba(56,189,248,0.10)] backdrop-blur">
                 <Image
                   src="/huginn-logo.png"
