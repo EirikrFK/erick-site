@@ -203,39 +203,39 @@ export default function Page() {
     <main className="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.10),transparent_28%),linear-gradient(to_bottom,#020617,#020617)]" />
 
-      <section className="relative">
-        <div className="mx-auto max-w-6xl px-6 pb-20 pt-10 md:pb-28 md:pt-14">
-          <div className="mb-10 flex items-center gap-4">
-            <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur">
-              <Image
-                src="/huginn-logo.png"
-                alt="Huginn Assist Logo"
-                width={64}
-                height={64}
-                className="rounded-xl"
-                priority
-              />
+      <section>
+        <div className="mx-auto max-w-6xl px-6 pt-12 pb-24 md:pt-16 md:pb-32">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="mb-8 flex items-center justify-center gap-4">
+              <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur">
+                <Image
+                  src="/huginn-logo.png"
+                  alt="Huginn Assist Logo"
+                  width={64}
+                  height={64}
+                  className="rounded-xl"
+                  priority
+                />
+              </div>
+
+              <div className="text-left">
+                <p className="text-xs uppercase tracking-[0.3em] text-sky-300">
+                  ErickAutomation
+                </p>
+                <p className="mt-1 text-2xl font-semibold text-white">
+                  Huginn Assist
+                </p>
+                <p className="mt-1 text-sm text-slate-400">
+                  AI-powered business assistant for customer interaction and lead capture
+                </p>
+              </div>
             </div>
 
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-sky-300">
-                ErickAutomation
-              </p>
-              <p className="mt-1 text-2xl font-semibold text-white">
-                Huginn Assist
-              </p>
-              <p className="mt-1 text-sm text-slate-400">
-                AI-powered business assistant for customer interaction and lead capture
-              </p>
-            </div>
-          </div>
-
-          <div className="max-w-4xl">
             <h1 className="text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-7xl">
               AI assistant that answers customers and captures leads automatically
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
               Try it live below — no signup needed.
             </p>
 
@@ -243,7 +243,7 @@ export default function Page() {
               Built for real business use — not just a demo.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="#demo"
                 className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
@@ -267,16 +267,16 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative">
-        <div className="mx-auto max-w-4xl px-6 pb-6 pt-2 text-center md:pb-10">
+      <section>
+        <div className="mx-auto max-w-4xl px-6 pb-8 text-center md:pb-12">
           <p className="text-xl font-medium leading-8 text-sky-300 md:text-2xl">
             This isn’t a demo — it’s how your business could respond to customers 24/7.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24" id="system">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
+      <section className="mx-auto max-w-6xl px-6 py-24" id="system">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-start">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
               What this does
@@ -285,9 +285,7 @@ export default function Page() {
               Built to reduce missed leads and slow follow-up
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              Huginn Assist is designed for real customer interaction flow — answering
-              questions, guiding next steps, and capturing contact details before
-              opportunities get lost.
+              Huginn Assist is designed for real customer interaction flow — answering questions, guiding next steps, and capturing contact details before opportunities get lost.
             </p>
           </div>
 
@@ -300,9 +298,9 @@ export default function Page() {
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-3xl border border-sky-500/10 bg-slate-900/50 p-6 backdrop-blur"
+                className="rounded-2xl bg-slate-900/40 p-6 text-slate-200 shadow-[0_10px_30px_rgba(2,6,23,0.18)] backdrop-blur"
               >
-                <p className="text-base leading-7 text-slate-200">{item}</p>
+                <p className="text-base leading-7">{item}</p>
               </div>
             ))}
           </div>
@@ -310,7 +308,7 @@ export default function Page() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-8 md:py-12">
-        <div className="rounded-[2rem] border border-slate-800/80 bg-slate-900/40 p-8 backdrop-blur md:p-10">
+        <div className="rounded-[2rem] bg-slate-900/35 p-8 backdrop-blur md:p-10">
           <div className="grid gap-8 md:grid-cols-3">
             <div>
               <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
@@ -340,8 +338,8 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div className="grid gap-10 md:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="grid gap-12 md:grid-cols-3 md:items-start">
           <div className="md:col-span-1">
             <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
               Built for businesses that
@@ -359,16 +357,16 @@ export default function Page() {
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-3xl border border-slate-800 bg-slate-900/35 p-6"
+                className="rounded-2xl bg-slate-900/30 p-6 text-slate-300"
               >
-                <p className="text-base leading-7 text-slate-300">{item}</p>
+                <p className="text-base leading-7">{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24" id="demo">
+      <section className="mx-auto max-w-6xl px-6 py-24" id="demo">
         <div className="mb-8 flex flex-wrap gap-3">
           {[
             "Customer Q&A",
@@ -386,7 +384,7 @@ export default function Page() {
           ))}
         </div>
 
-        <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
               Try Huginn Assist
@@ -395,9 +393,7 @@ export default function Page() {
               Talk with my business assistant
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              Huginn Assist is the business-facing system in my Huginn ecosystem —
-              built to answer questions, guide conversations, support service flow,
-              and capture leads in a more natural way.
+              Huginn Assist is the business-facing system in my Huginn ecosystem — built to answer questions, guide conversations, support service flow, and capture leads in a more natural way.
             </p>
 
             <p className="mt-8 text-slate-300">
@@ -423,7 +419,7 @@ export default function Page() {
 
           <div className="relative">
             <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-r from-sky-500/10 to-violet-500/10 blur-2xl" />
-            <div className="rounded-[2rem] border border-sky-500/15 bg-slate-950/90 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.55)] backdrop-blur">
+            <div className="rounded-[2rem] bg-slate-950/90 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.55)] backdrop-blur">
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
@@ -438,7 +434,7 @@ export default function Page() {
                 </span>
               </div>
 
-              <div className="h-[420px] overflow-y-auto rounded-3xl border border-sky-500/10 bg-gradient-to-b from-slate-900/80 to-slate-950 p-4">
+              <div className="h-[420px] overflow-y-auto rounded-3xl bg-gradient-to-b from-slate-900/80 to-slate-950 p-4">
                 <div className="space-y-4">
                   {messages.map((message, index) => (
                     <div
@@ -451,7 +447,7 @@ export default function Page() {
                         className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
                           message.role === "user"
                             ? "bg-gradient-to-r from-sky-300 to-sky-400 text-slate-950 shadow-md shadow-sky-500/10"
-                            : "border border-sky-500/10 bg-slate-950 text-slate-200"
+                            : "bg-slate-900 text-slate-200"
                         }`}
                       >
                         {message.text}
@@ -483,7 +479,7 @@ export default function Page() {
               {showLeadForm && !leadSubmitted && (
                 <form
                   onSubmit={handleLeadSubmit}
-                  className="mt-5 space-y-3 rounded-3xl border border-slate-800 bg-slate-900/70 p-4"
+                  className="mt-5 space-y-3 rounded-3xl bg-slate-900/70 p-4"
                 >
                   <p className="text-sm font-medium text-sky-300">
                     Request Huginn Assist
@@ -537,8 +533,8 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-        <div className="grid gap-12 lg:grid-cols-2">
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
           <div>
             <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
               Why this matters
@@ -547,10 +543,7 @@ export default function Page() {
               Businesses lose opportunities when response flow breaks down
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              A lot of businesses lose opportunities because they respond too slowly,
-              miss inquiries, or don’t have a clear process for handling leads.
-              Huginn Assist is built to reduce that friction and help businesses
-              respond faster and smarter.
+              A lot of businesses lose opportunities because they respond too slowly, miss inquiries, or don’t have a clear process for handling leads. Huginn Assist is built to reduce that friction and help businesses respond faster and smarter.
             </p>
           </div>
 
@@ -562,81 +555,73 @@ export default function Page() {
               Built for real use cases
             </h3>
             <p className="mt-6 text-lg leading-8 text-slate-300">
-              I focus on real use cases, simple implementation paths, and systems that
-              can grow over time instead of flashy tech that looks impressive but
-              solves nothing.
+              I focus on real use cases, simple implementation paths, and systems that can grow over time instead of flashy tech that looks impressive but solves nothing.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-slate-800/80">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
-              In development
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">
-              Ember Companion
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-slate-300">
-              A long-term AI companion system focused on memory, personality, and
-              consistent interaction design.
-            </p>
-            <p className="mt-3 text-sm text-slate-400">
-              Part of the broader Huginn system currently in development.
-            </p>
-          </div>
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="max-w-2xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+            In development
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">
+            Ember Companion
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-slate-300">
+            A long-term AI companion system focused on memory, personality, and consistent interaction design.
+          </p>
+          <p className="mt-3 text-sm text-slate-400">
+            Part of the broader Huginn system currently in development.
+          </p>
         </div>
       </section>
 
-      <section className="border-t border-slate-800/80" id="contact">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
-              Contact
-            </p>
-            <h2 className="mt-3 text-4xl font-semibold text-white md:text-5xl">
-              Want one for your business?
-            </h2>
+      <section className="mx-auto max-w-6xl px-6 py-24" id="contact">
+        <div className="max-w-3xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+            Contact
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold text-white md:text-5xl">
+            Want one for your business?
+          </h2>
 
-            <p className="mt-6 text-lg leading-8 text-slate-300">
-              Reach out directly if you want Huginn Assist built around your services,
-              pricing, and customer flow.
-            </p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            Reach out directly if you want Huginn Assist built around your services, pricing, and customer flow.
+          </p>
 
+          <a
+            href="mailto:erick.madrid@huginnassist.com"
+            className="mt-6 inline-block text-xl font-medium text-sky-300 underline underline-offset-4"
+          >
+            erick.madrid@huginnassist.com
+          </a>
+
+          <p className="mt-4 text-sm text-slate-400">
+            Built and maintained by a real developer — not just an automated tool.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="mailto:erick.madrid@huginnassist.com"
-              className="mt-6 inline-block text-xl font-medium text-sky-300 underline underline-offset-4"
+              className="rounded-2xl bg-slate-100 px-6 py-3 font-medium text-slate-950 transition hover:scale-[1.02]"
             >
-              erick.madrid@huginnassist.com
+              Email Erick
             </a>
-
-            <p className="mt-4 text-sm text-slate-400">
-              Built and maintained by a real developer — not just an automated tool.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="mailto:erick.madrid@huginnassist.com"
-                className="rounded-2xl bg-slate-100 px-6 py-3 font-medium text-slate-950 transition hover:scale-[1.02]"
-              >
-                Email Erick
-              </a>
-              <a
-                href="https://www.instagram.com/Erick.Automation"
-                className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram: @Erick.Automation
-              </a>
-            </div>
+            <a
+              href="https://www.instagram.com/Erick.Automation"
+              className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram: @Erick.Automation
+            </a>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-slate-800/80 py-8 text-center text-sm text-slate-400">
+      <footer className="py-8 text-center text-sm text-slate-400">
         <div>ErickAutomation | Huginn Assist</div>
         <div className="mt-1">
           AI-powered business assistant for customer interaction and lead capture
