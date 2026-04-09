@@ -44,8 +44,6 @@ export default function Page() {
     [messages]
   );
 
-  const shouldOfferLeadCapture = !leadSubmitted && userMessageCount >= 2;
-
   const getAssistantReply = (text: string): string => {
     const t = text.trim().toLowerCase();
 
@@ -86,16 +84,16 @@ export default function Page() {
 
     if (
       t.includes("business") ||
-      t.includes("can this work for my business") ||
-      t.includes("would this work")
+      t.includes("would this work") ||
+      t.includes("can this work")
     ) {
       return "Yes — it’s built for real business use, especially small businesses that want faster customer response, better lead handling, and a simpler contact flow.";
     }
 
     if (
       t.includes("real") ||
-      t.includes("demo") ||
-      t.includes("scripted")
+      t.includes("scripted") ||
+      t.includes("demo")
     ) {
       return "This is a working assistant experience built to simulate real business interaction flow — not just a static scripted demo.";
     }
@@ -106,15 +104,15 @@ export default function Page() {
       t.includes("friction") ||
       t.includes("missed leads")
     ) {
-      return "Huginn Analyze is the business analysis layer of the system — built to identify lead friction, weak contact flow, and missed opportunity risks before improving the experience with Huginn Assist.";
+      return "Huginn Analyze is the analysis layer of the system — built to identify lead friction, weak contact flow, and missed opportunity risks before improving the experience with Huginn Assist.";
     }
 
     if (
-      t.includes("how do i get one") ||
-      t.includes("get one") ||
       t.includes("contact") ||
+      t.includes("get one") ||
+      t.includes("started") ||
       t.includes("reach erick") ||
-      t.includes("started")
+      t.includes("how do i get one")
     ) {
       return "If you'd like, I can connect you with Erick directly — you can also reach him at erick.madrid@huginnassist.com.";
     }
@@ -131,7 +129,7 @@ export default function Page() {
       { role: "assistant", text: assistantReply },
     ];
 
-    if (shouldOfferLeadCapture) {
+    if (!leadSubmitted && userMessageCount + 1 >= 2 && !showLeadForm) {
       updatedMessages.push({
         role: "assistant",
         text: "Would you like to leave your email and business info so I can send your request to Erick.Automation?",
@@ -202,43 +200,42 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.12),transparent_35%),radial-gradient(circle_at_bottom,rgba(59,130,246,0.10),transparent_30%)]" />
+    <main className="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.10),transparent_28%),linear-gradient(to_bottom,#020617,#020617)]" />
 
-      <section className="relative overflow-hidden border-b border-slate-800">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/15 via-violet-500/10 to-transparent" />
-        <div className="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <div className="max-w-4xl">
-            <div className="mb-8 flex items-center gap-4">
-              <div className="rounded-2xl border border-sky-400/20 bg-slate-900/80 p-2 shadow-lg shadow-sky-500/10">
-                <Image
-                  src="/huginn-logo.png"
-                  alt="Huginn Assist Logo"
-                  width={64}
-                  height={64}
-                  className="rounded-xl"
-                  priority
-                />
-              </div>
-
-              <div>
-                <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
-                  ErickAutomation
-                </p>
-                <p className="mt-1 text-2xl font-semibold text-slate-100">
-                  Huginn Assist
-                </p>
-                <p className="mt-1 text-sm text-slate-400">
-                  AI-powered business assistant for customer interaction and lead capture
-                </p>
-              </div>
+      <section className="relative">
+        <div className="mx-auto max-w-6xl px-6 pb-20 pt-10 md:pb-28 md:pt-14">
+          <div className="mb-10 flex items-center gap-4">
+            <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur">
+              <Image
+                src="/huginn-logo.png"
+                alt="Huginn Assist Logo"
+                width={64}
+                height={64}
+                className="rounded-xl"
+                priority
+              />
             </div>
 
-            <h1 className="text-4xl font-bold tracking-tight text-slate-50 md:text-6xl">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-sky-300">
+                ErickAutomation
+              </p>
+              <p className="mt-1 text-2xl font-semibold text-white">
+                Huginn Assist
+              </p>
+              <p className="mt-1 text-sm text-slate-400">
+                AI-powered business assistant for customer interaction and lead capture
+              </p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl">
+            <h1 className="text-5xl font-semibold leading-[1.02] tracking-tight text-white md:text-7xl">
               AI assistant that answers customers and captures leads automatically
             </h1>
 
-            <p className="mt-5 text-lg leading-8 text-slate-300 md:text-xl">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
               Try it live below — no signup needed.
             </p>
 
@@ -249,19 +246,19 @@ export default function Page() {
             <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="#demo"
-                className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02] hover:shadow-sky-400/20"
+                className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
               >
                 Try Huginn Assist
               </a>
               <a
                 href="#system"
-                className="rounded-2xl border border-sky-400/30 bg-slate-900/80 px-6 py-3 font-medium text-sky-200 shadow-lg shadow-sky-500/10 transition hover:scale-[1.02] hover:border-sky-300 hover:bg-slate-900"
+                className="rounded-2xl border border-sky-400/30 bg-slate-900/60 px-6 py-3 font-medium text-sky-200 backdrop-blur transition hover:border-sky-300"
               >
                 How It Works
               </a>
               <a
                 href="#contact"
-                className="rounded-2xl border border-slate-700 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500 hover:bg-slate-900"
+                className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
               >
                 Contact Erick
               </a>
@@ -270,48 +267,72 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-12" id="system">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-sky-500/20 bg-gradient-to-r from-sky-500/10 to-violet-500/10 p-6 shadow-lg shadow-sky-500/5">
-            <h2 className="text-2xl font-bold">What this assistant can do</h2>
-            <ul className="mt-4 space-y-2 text-slate-300">
-              <li>• Answer customer questions instantly</li>
-              <li>• Guide conversations toward booking</li>
-              <li>• Capture emails and phone numbers</li>
-              <li>• Reduce missed opportunities</li>
-            </ul>
+      <section className="relative">
+        <div className="mx-auto max-w-4xl px-6 pb-6 pt-2 text-center md:pb-10">
+          <p className="text-xl font-medium leading-8 text-sky-300 md:text-2xl">
+            This isn’t a demo — it’s how your business could respond to customers 24/7.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24" id="system">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              What this does
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-white md:text-5xl">
+              Built to reduce missed leads and slow follow-up
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+              Huginn Assist is designed for real customer interaction flow — answering
+              questions, guiding next steps, and capturing contact details before
+              opportunities get lost.
+            </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
-            <h2 className="text-2xl font-bold">Designed for businesses that:</h2>
-            <ul className="mt-4 space-y-2 text-slate-300">
-              <li>• Get leads but don’t respond fast enough</li>
-              <li>• Miss opportunities due to delayed follow-up</li>
-              <li>• Want a simple way to capture and respond automatically</li>
-            </ul>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              "Answer customer questions instantly",
+              "Guide conversations toward booking",
+              "Capture emails and phone numbers",
+              "Reduce missed opportunities",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-3xl border border-sky-500/10 bg-slate-900/50 p-6 backdrop-blur"
+              >
+                <p className="text-base leading-7 text-slate-200">{item}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-8">
-        <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
-          <h2 className="text-2xl font-bold">Analyze → Improve → Capture</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5">
-              <h3 className="font-semibold text-sky-300">Analyze</h3>
-              <p className="mt-2 text-sm text-slate-300">
+      <section className="mx-auto max-w-6xl px-6 py-8 md:py-12">
+        <div className="rounded-[2rem] border border-slate-800/80 bg-slate-900/40 p-8 backdrop-blur md:p-10">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div>
+              <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+                Analyze
+              </p>
+              <p className="mt-3 text-lg leading-8 text-slate-300">
                 Spot lead friction, weak contact flow, and missed opportunity risks.
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5">
-              <h3 className="font-semibold text-sky-300">Improve</h3>
-              <p className="mt-2 text-sm text-slate-300">
-                Guide visitors through questions, services, and next steps more clearly.
+            <div>
+              <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+                Improve
+              </p>
+              <p className="mt-3 text-lg leading-8 text-slate-300">
+                Guide visitors through services, questions, and next steps more clearly.
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-5">
-              <h3 className="font-semibold text-sky-300">Capture</h3>
-              <p className="mt-2 text-sm text-slate-300">
+            <div>
+              <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+                Capture
+              </p>
+              <p className="mt-3 text-lg leading-8 text-slate-300">
                 Collect contact details so follow-up doesn’t get lost.
               </p>
             </div>
@@ -319,7 +340,35 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16" id="demo">
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div className="grid gap-10 md:grid-cols-3">
+          <div className="md:col-span-1">
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              Built for businesses that
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-white">
+              Need faster response without more manual work
+            </h2>
+          </div>
+
+          <div className="md:col-span-2 grid gap-4 sm:grid-cols-3">
+            {[
+              "Get leads but don’t respond fast enough",
+              "Miss opportunities due to delayed follow-up",
+              "Want a simple way to capture and respond automatically",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-3xl border border-slate-800 bg-slate-900/35 p-6"
+              >
+                <p className="text-base leading-7 text-slate-300">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24" id="demo">
         <div className="mb-8 flex flex-wrap gap-3">
           {[
             "Customer Q&A",
@@ -330,28 +379,28 @@ export default function Page() {
           ].map((item) => (
             <span
               key={item}
-              className="rounded-full border border-sky-400/20 bg-slate-900/80 px-4 py-2 text-sm text-sky-200 shadow-sm shadow-sky-500/5"
+              className="rounded-full border border-sky-400/20 bg-slate-900/60 px-4 py-2 text-sm text-sky-200 backdrop-blur"
             >
               {item}
             </span>
           ))}
         </div>
 
-        <div className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8 shadow-xl shadow-black/20">
-            <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
               Try Huginn Assist
             </p>
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+            <h2 className="mt-3 text-4xl font-semibold text-white md:text-5xl">
               Talk with my business assistant
             </h2>
-            <p className="mt-4 text-slate-300">
-              Huginn Assist is my business-facing assistant built to answer questions,
-              guide conversations, support service flow, and capture leads in a more
-              natural way.
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+              Huginn Assist is the business-facing system in my Huginn ecosystem —
+              built to answer questions, guide conversations, support service flow,
+              and capture leads in a more natural way.
             </p>
 
-            <p className="mt-6 text-slate-300">
+            <p className="mt-8 text-slate-300">
               Try one of these prompts or type your own:
             </p>
 
@@ -360,130 +409,144 @@ export default function Page() {
                 <button
                   key={prompt}
                   onClick={() => handlePromptClick(prompt)}
-                  className="rounded-2xl border border-slate-700 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400 hover:text-sky-300"
+                  className="rounded-2xl border border-slate-700 bg-slate-900/40 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400 hover:text-sky-300"
                 >
                   {prompt}
                 </button>
               ))}
             </div>
+
+            <p className="mt-8 text-sm text-sky-300">
+              This is a working assistant — not a scripted demo.
+            </p>
           </div>
 
-          <div className="rounded-3xl border border-sky-500/15 bg-slate-950 p-6 shadow-xl shadow-sky-950/20">
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
-                  Live assistant
-                </p>
-                <h3 className="mt-2 text-xl font-semibold">Huginn Assist</h3>
+          <div className="relative">
+            <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-r from-sky-500/10 to-violet-500/10 blur-2xl" />
+            <div className="rounded-[2rem] border border-sky-500/15 bg-slate-950/90 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.55)] backdrop-blur">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
+                    Live assistant
+                  </p>
+                  <h3 className="mt-2 text-2xl font-semibold text-white">
+                    Huginn Assist
+                  </h3>
+                </div>
+                <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
+                  Active
+                </span>
               </div>
-              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
-                Active
-              </span>
-            </div>
 
-            <div className="h-[320px] overflow-y-auto rounded-2xl border border-sky-500/10 bg-gradient-to-b from-slate-900/80 to-slate-950 p-4">
-              <div className="space-y-4">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${
-                      message.role === "user" ? "justify-end" : "justify-start"
-                    }`}
-                  >
+              <div className="h-[420px] overflow-y-auto rounded-3xl border border-sky-500/10 bg-gradient-to-b from-slate-900/80 to-slate-950 p-4">
+                <div className="space-y-4">
+                  {messages.map((message, index) => (
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
-                        message.role === "user"
-                          ? "bg-gradient-to-r from-sky-300 to-sky-400 text-slate-950 shadow-md shadow-sky-500/10"
-                          : "border border-sky-500/10 bg-slate-950 text-slate-200"
+                      key={index}
+                      className={`flex ${
+                        message.role === "user" ? "justify-end" : "justify-start"
                       }`}
                     >
-                      {message.text}
+                      <div
+                        className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
+                          message.role === "user"
+                            ? "bg-gradient-to-r from-sky-300 to-sky-400 text-slate-950 shadow-md shadow-sky-500/10"
+                            : "border border-sky-500/10 bg-slate-950 text-slate-200"
+                        }`}
+                      >
+                        {message.text}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="mt-4 flex gap-2">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSend();
-                }}
-                placeholder="Ask about services, pricing, booking, or lead capture..."
-                className="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
-              />
-              <button
-                onClick={handleSend}
-                className="rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
-              >
-                Send
-              </button>
-            </div>
-
-            {showLeadForm && !leadSubmitted && (
-              <form
-                onSubmit={handleLeadSubmit}
-                className="mt-4 space-y-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4"
-              >
-                <p className="text-sm font-medium text-sky-300">
-                  Request Huginn Assist
-                </p>
-
+              <div className="mt-4 flex gap-2">
                 <input
                   type="text"
-                  name="name"
-                  value={leadForm.name}
-                  onChange={handleLeadChange}
-                  placeholder="Your name"
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSend();
+                  }}
+                  placeholder="Ask about services, pricing, booking, or lead capture..."
+                  className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
                 />
-
-                <input
-                  type="email"
-                  name="email"
-                  value={leadForm.email}
-                  onChange={handleLeadChange}
-                  placeholder="Your email"
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
-                />
-
-                <input
-                  type="text"
-                  name="business"
-                  value={leadForm.business}
-                  onChange={handleLeadChange}
-                  placeholder="Business name or industry"
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
-                />
-
                 <button
-                  type="submit"
-                  className="w-full rounded-xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
+                  onClick={handleSend}
+                  className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
                 >
-                  Send to Erick
+                  Send
                 </button>
+              </div>
 
-                <p className="text-xs text-slate-400">
-                  Demo version: lead info is saved in this browser using localStorage.
-                </p>
-              </form>
-            )}
+              {showLeadForm && !leadSubmitted && (
+                <form
+                  onSubmit={handleLeadSubmit}
+                  className="mt-5 space-y-3 rounded-3xl border border-slate-800 bg-slate-900/70 p-4"
+                >
+                  <p className="text-sm font-medium text-sky-300">
+                    Request Huginn Assist
+                  </p>
 
-            <p className="mt-4 text-sm text-sky-300">
-              This is a working assistant experience built to simulate real business interaction flow.
-            </p>
+                  <input
+                    type="text"
+                    name="name"
+                    value={leadForm.name}
+                    onChange={handleLeadChange}
+                    placeholder="Your name"
+                    className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    value={leadForm.email}
+                    onChange={handleLeadChange}
+                    placeholder="Your email"
+                    className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                  />
+
+                  <input
+                    type="text"
+                    name="business"
+                    value={leadForm.business}
+                    onChange={handleLeadChange}
+                    placeholder="Business name or industry"
+                    className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                  />
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
+                  >
+                    Send to Erick
+                  </button>
+
+                  <p className="text-xs text-slate-400">
+                    Demo version: lead info is saved in this browser using localStorage.
+                  </p>
+                </form>
+              )}
+
+              <p className="mt-4 text-sm text-slate-400">
+                This is a working assistant experience built to simulate real business interaction flow.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
-            <h2 className="text-3xl font-bold">Why this matters</h2>
-            <p className="mt-4 text-slate-300">
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              Why this matters
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white">
+              Businesses lose opportunities when response flow breaks down
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
               A lot of businesses lose opportunities because they respond too slowly,
               miss inquiries, or don’t have a clear process for handling leads.
               Huginn Assist is built to reduce that friction and help businesses
@@ -491,9 +554,14 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-sky-500/10 to-violet-500/10 p-8">
-            <h2 className="text-3xl font-bold">Built with a practical mindset</h2>
-            <p className="mt-4 text-slate-300">
+          <div className="rounded-[2rem] bg-gradient-to-br from-sky-500/10 to-violet-500/10 p-8">
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              Practical mindset
+            </p>
+            <h3 className="mt-3 text-3xl font-semibold text-white">
+              Built for real use cases
+            </h3>
+            <p className="mt-6 text-lg leading-8 text-slate-300">
               I focus on real use cases, simple implementation paths, and systems that
               can grow over time instead of flashy tech that looks impressive but
               solves nothing.
@@ -502,43 +570,44 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="border-t border-slate-800">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+      <section className="border-t border-slate-800/80">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold text-slate-200">
-              In Development
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              In development
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold text-white">
+              Ember Companion
             </h2>
-
-            <div className="mt-6 rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-black/20">
-              <h3 className="text-lg font-semibold text-slate-100">
-                Ember Companion (In Progress)
-              </h3>
-
-              <p className="mt-3 text-slate-300">
-                A long-term AI companion system focused on memory, personality, and
-                consistent interaction design.
-              </p>
-
-              <p className="mt-2 text-sm text-slate-400">
-                Part of the broader Huginn system currently in development.
-              </p>
-            </div>
+            <p className="mt-5 text-lg leading-8 text-slate-300">
+              A long-term AI companion system focused on memory, personality, and
+              consistent interaction design.
+            </p>
+            <p className="mt-3 text-sm text-slate-400">
+              Part of the broader Huginn system currently in development.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-slate-800" id="contact">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold md:text-4xl">
+      <section className="border-t border-slate-800/80" id="contact">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
+              Contact
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold text-white md:text-5xl">
               Want one for your business?
             </h2>
 
-            <p className="mt-4 text-slate-300">Reach out directly:</p>
+            <p className="mt-6 text-lg leading-8 text-slate-300">
+              Reach out directly if you want Huginn Assist built around your services,
+              pricing, and customer flow.
+            </p>
 
             <a
               href="mailto:erick.madrid@huginnassist.com"
-              className="mt-2 inline-block text-lg font-medium text-sky-300 underline underline-offset-4"
+              className="mt-6 inline-block text-xl font-medium text-sky-300 underline underline-offset-4"
             >
               erick.madrid@huginnassist.com
             </a>
@@ -556,7 +625,7 @@ export default function Page() {
               </a>
               <a
                 href="https://www.instagram.com/Erick.Automation"
-                className="rounded-2xl border border-slate-700 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500 hover:bg-slate-900"
+                className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -567,13 +636,13 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="border-t border-slate-800 py-6 text-center text-sm text-slate-400">
+      <footer className="border-t border-slate-800/80 py-8 text-center text-sm text-slate-400">
         <div>ErickAutomation | Huginn Assist</div>
         <div className="mt-1">
           AI-powered business assistant for customer interaction and lead capture
         </div>
         <div className="mt-1">Contact: erick.madrid@huginnassist.com</div>
       </footer>
-    </div>
+    </main>
   );
 }
