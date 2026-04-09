@@ -26,7 +26,7 @@ export default function Page() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      text: "Hi, I’m Huginn Assist. I can help explain how this assistant handles customer questions, lead capture, pricing, and booking flow for businesses.",
+      text: "Hi, I’m Huginn Assist. I can explain how this assistant helps businesses answer questions, guide customers, and capture leads.",
     },
   ]);
 
@@ -52,7 +52,7 @@ export default function Page() {
       t.includes("what do you offer") ||
       t.includes("offer")
     ) {
-      return "Huginn Assist can be tailored to answer customer questions, guide visitors through services, support booking flow, and capture lead information for follow-up.";
+      return "Huginn Assist can be tailored to answer customer questions, explain services, guide next steps, and support lead capture for a business website.";
     }
 
     if (
@@ -61,7 +61,7 @@ export default function Page() {
       t.includes("pricing") ||
       t.includes("how much")
     ) {
-      return "Pricing depends on the business setup, conversation flow, and lead capture needs. I can tailor a version around your services and workflow.";
+      return "Pricing depends on the setup, conversation flow, and lead capture needs. A version can be built around your services and workflow.";
     }
 
     if (
@@ -201,13 +201,13 @@ export default function Page() {
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.10),transparent_28%),linear-gradient(to_bottom,#020617,#020617)]" />
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.12),transparent_30%),linear-gradient(to_bottom,#020617,#020617)]" />
 
       <section>
-        <div className="mx-auto max-w-6xl px-6 pt-12 pb-24 md:pt-16 md:pb-32">
+        <div className="mx-auto max-w-6xl px-6 pb-24 pt-12 md:pb-32 md:pt-16">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-8 flex items-center justify-center gap-4">
-              <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_30px_rgba(56,189,248,0.08)] backdrop-blur">
+              <div className="rounded-2xl border border-sky-400/20 bg-slate-900/70 p-2 shadow-[0_0_40px_rgba(56,189,248,0.10)] backdrop-blur">
                 <Image
                   src="/huginn-logo.png"
                   alt="Huginn Assist Logo"
@@ -246,19 +246,19 @@ export default function Page() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="#demo"
-                className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.02]"
+                className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 font-medium text-white shadow-lg shadow-sky-500/20 transition hover:scale-[1.03] hover:shadow-sky-400/30"
               >
                 Try Huginn Assist
               </a>
               <a
                 href="#system"
-                className="rounded-2xl border border-sky-400/30 bg-slate-900/60 px-6 py-3 font-medium text-sky-200 backdrop-blur transition hover:border-sky-300"
+                className="rounded-2xl border border-sky-400/30 bg-slate-900/60 px-6 py-3 font-medium text-sky-200 backdrop-blur transition hover:scale-[1.02] hover:border-sky-300"
               >
                 How It Works
               </a>
               <a
                 href="#contact"
-                className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
+                className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:scale-[1.02] hover:border-slate-500"
               >
                 Contact Erick
               </a>
@@ -268,7 +268,7 @@ export default function Page() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-4xl px-6 pb-8 text-center md:pb-12">
+        <div className="mx-auto max-w-4xl px-6 pb-10 text-center md:pb-14">
           <p className="text-xl font-medium leading-8 text-sky-300 md:text-2xl">
             This isn’t a demo — it’s how your business could respond to customers 24/7.
           </p>
@@ -282,10 +282,10 @@ export default function Page() {
               What this does
             </p>
             <h2 className="mt-3 text-3xl font-semibold text-white md:text-5xl">
-              Built to reduce missed leads and slow follow-up
+              Answers questions. Guides customers. Captures leads.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              Huginn Assist is designed for real customer interaction flow — answering questions, guiding next steps, and capturing contact details before opportunities get lost.
+              Huginn Assist is designed for real customer interaction flow — helping businesses respond faster, guide visitors clearly, and reduce missed opportunities.
             </p>
           </div>
 
@@ -298,7 +298,7 @@ export default function Page() {
             ].map((item) => (
               <div
                 key={item}
-                className="rounded-2xl bg-slate-900/40 p-6 text-slate-200 shadow-[0_10px_30px_rgba(2,6,23,0.18)] backdrop-blur"
+                className="rounded-2xl bg-slate-900/40 p-6 text-slate-200 shadow-[0_10px_30px_rgba(2,6,23,0.18)] backdrop-blur transition hover:-translate-y-1"
               >
                 <p className="text-base leading-7">{item}</p>
               </div>
@@ -342,7 +342,7 @@ export default function Page() {
         <div className="grid gap-12 md:grid-cols-3 md:items-start">
           <div className="md:col-span-1">
             <p className="text-sm uppercase tracking-[0.25em] text-sky-300">
-              Built for businesses that
+              Designed for businesses that
             </p>
             <h2 className="mt-3 text-3xl font-semibold text-white">
               Need faster response without more manual work
@@ -393,7 +393,7 @@ export default function Page() {
               Talk with my business assistant
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              Huginn Assist is the business-facing system in my Huginn ecosystem — built to answer questions, guide conversations, support service flow, and capture leads in a more natural way.
+              Huginn Assist is the business-facing system in my Huginn ecosystem — built to answer questions, guide conversations, support service flow, and capture leads naturally.
             </p>
 
             <p className="mt-8 text-slate-300">
@@ -405,7 +405,7 @@ export default function Page() {
                 <button
                   key={prompt}
                   onClick={() => handlePromptClick(prompt)}
-                  className="rounded-2xl border border-slate-700 bg-slate-900/40 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-sky-400 hover:text-sky-300"
+                  className="rounded-2xl border border-slate-700 bg-slate-900/40 px-4 py-2 text-sm font-medium text-slate-100 transition hover:scale-[1.02] hover:border-sky-400 hover:bg-slate-800/60 hover:text-sky-300"
                 >
                   {prompt}
                 </button>
@@ -418,8 +418,8 @@ export default function Page() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-r from-sky-500/10 to-violet-500/10 blur-2xl" />
-            <div className="rounded-[2rem] bg-slate-950/90 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.55)] backdrop-blur">
+            <div className="absolute -inset-6 -z-10 rounded-[2rem] bg-gradient-to-r from-sky-500/20 to-violet-500/20 blur-3xl" />
+            <div className="rounded-[2rem] bg-slate-950/90 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.7)] backdrop-blur">
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
@@ -470,7 +470,7 @@ export default function Page() {
                 />
                 <button
                   onClick={handleSend}
-                  className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
+                  className="rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-medium text-white transition hover:scale-[1.02]"
                 >
                   Send
                 </button>
@@ -514,7 +514,7 @@ export default function Page() {
 
                   <button
                     type="submit"
-                    className="w-full rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.01]"
+                    className="w-full rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 px-4 py-3 text-sm font-medium text-white transition hover:scale-[1.02]"
                   >
                     Send to Erick
                   </button>
@@ -611,7 +611,7 @@ export default function Page() {
             </a>
             <a
               href="https://www.instagram.com/Erick.Automation"
-              className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:border-slate-500"
+              className="rounded-2xl border border-slate-700 bg-slate-900/30 px-6 py-3 font-medium text-slate-100 transition hover:scale-[1.02] hover:border-slate-500"
               target="_blank"
               rel="noreferrer"
             >
